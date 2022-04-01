@@ -6,6 +6,13 @@ class FirestoreService {
   FirestoreService._();
   static final instance = FirestoreService._();
 
+  Future<bool> isExists({required String path}) async {
+    final reference = FirebaseFirestore.instance.doc(path);
+    print('isExists: $path');
+    final snapshot = await reference.get();
+    return snapshot.exists;
+  }
+
   Future<void> setData({
     required String path,
     required Map<String, dynamic> data,
