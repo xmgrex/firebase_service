@@ -29,6 +29,22 @@ class FirestoreService {
     await reference.delete();
   }
 
+  Future<DocumentSnapshot<Map<String, dynamic>>> getDocument({
+    required String path,
+  }) async {
+    final reference = FirebaseFirestore.instance.doc(path);
+    print('path: $path');
+    return await reference.get();
+  }
+
+  Future<QuerySnapshot<Map<String, dynamic>>> getCollection({
+    required String path,
+  }) async {
+    final reference = FirebaseFirestore.instance.collection(path);
+    print('path: $path');
+    return await reference.get();
+  }
+
   Stream<List<T>> collectionStream<T>({
     required String path,
     required T Function(Map<String, dynamic>? data, String documentID) builder,
