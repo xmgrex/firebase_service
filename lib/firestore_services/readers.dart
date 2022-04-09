@@ -18,4 +18,13 @@ class Readers {
     return await reference.get();
   }
 
+  Future<QuerySnapshot<Map<String, dynamic>>> getCollectionLimited({
+    required String path,
+    required int limit,
+  }) async {
+    final reference = FirebaseFirestore.instance.collection(path).limit(limit);
+    print('path: $path');
+    return await reference.get();
+  }
+
 }
