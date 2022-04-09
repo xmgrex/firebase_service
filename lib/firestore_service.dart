@@ -8,9 +8,9 @@ class FirestoreService {
 
   static final instance = FirestoreService._();
 
-  static final writers = Writers();
-  static final readers = Writers();
-  static final streamers = Writers();
+  final writers = Writers();
+  final readers = Writers();
+  final streamers = Writers();
 
   Future<bool> isExists({required String path}) async {
     final reference = FirebaseFirestore.instance.doc(path);
