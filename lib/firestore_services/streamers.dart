@@ -1,51 +1,6 @@
-library firestore_service;
-
 import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:firebase_services/firestore_services/writers.dart';
 
-class FirestoreService {
-  FirestoreService._();
-
-  static final instance = FirestoreService._();
-
-  static final writers = Writers();
-  static final readers = Writers();
-  static final streamers = Writers();
-
-  Future<bool> isExists({required String path}) async {
-    final reference = FirebaseFirestore.instance.doc(path);
-    print('isExists: $path');
-    final snapshot = await reference.get();
-    return snapshot.exists;
-  }
-
-  Future<void> setData({
-    required String path,
-    required Map<String, dynamic> data,
-    bool merge = false,
-  }) async {
-    writers.setData(path: path, data: data, merge: merge);
-  }
-
-  Future<void> deleteData({required String path}) async {
-    writers.deleteData(path: path);
-  }
-
-  Future<DocumentSnapshot<Map<String, dynamic>>> getDocument({
-    required String path,
-  }) async {
-    final reference = FirebaseFirestore.instance.doc(path);
-    print('path: $path');
-    return await reference.get();
-  }
-
-  Future<QuerySnapshot<Map<String, dynamic>>> getCollection({
-    required String path,
-  }) async {
-    final reference = FirebaseFirestore.instance.collection(path);
-    print('path: $path');
-    return await reference.get();
-  }
+class Streamers {
 
   Stream<List<T>> collectionStream<T>({
     required String path,
@@ -110,4 +65,5 @@ class FirestoreService {
       return result;
     });
   }
+
 }
