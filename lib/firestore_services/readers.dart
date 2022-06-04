@@ -2,6 +2,14 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 
 class Readers {
 
+  DocumentReference document({required String path}) {
+    return FirebaseFirestore.instance.doc(path);
+  }
+
+  CollectionReference collection({required String path}) {
+    return FirebaseFirestore.instance.collection(path);
+  }
+
   Future<DocumentSnapshot<Map<String, dynamic>>> getDocument({
     required String path,
   }) async {
@@ -26,5 +34,4 @@ class Readers {
     print('path: $path');
     return await reference.get();
   }
-
 }
