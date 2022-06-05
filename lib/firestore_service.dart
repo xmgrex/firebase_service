@@ -9,6 +9,7 @@ class FirestoreService {
   FirestoreService._();
 
   static final instance = FirestoreService._();
+  static final firestoreInstance = FirebaseFirestore.instance;
 
   final writers = Writers();
   final readers = Readers();
@@ -19,6 +20,26 @@ class FirestoreService {
     print('isExists: $path');
     final snapshot = await reference.get();
     return snapshot.exists;
+  }
+
+}
+
+extension GetCacheElseServerExtension on DocumentReference {
+
+  Future<DocumentSnapshot> getCacheElseServer() async {
+    DocumentSnapshot? snapshot;
+    snapshot = await _getFromCache();
+    return snapshot ?? await _getFromServer();
+  }
+
+  Future<DocumentSnapshot> _getFromServer() => get();
+
+  Future<DocumentSnapshot?> _getFromCache() async {
+    try {
+      return await get(const GetOptions(source: Source.cache));
+    } catch (_) {
+      return null;
+    }
   }
 
 }
