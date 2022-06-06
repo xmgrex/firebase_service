@@ -9,8 +9,8 @@ class FirestoreService {
   FirestoreService._();
 
   static final instance = FirestoreService._();
-  static final firestoreInstance = FirebaseFirestore.instance;
 
+  final firestoreInstance = FirebaseFirestore.instance;
   final writers = Writers();
   final readers = Readers();
   final streamers = Streamers();
@@ -24,22 +24,40 @@ class FirestoreService {
 
 }
 
-extension GetCacheElseServerExtension on DocumentReference {
+extension DocumentGetCacheElseServerExtension on DocumentReference {
 
-  Future<DocumentSnapshot> getCacheElseServer() async {
-    DocumentSnapshot? snapshot;
-    snapshot = await _getFromCache();
-    return snapshot ?? await _getFromServer();
+  Future<DocumentSnapshot<T>> getCacheElseServer<T>() async {
+    DocumentSnapshot<T>? snapshot;
+    snapshot = (await _getFromCache()) as DocumentSnapshot<T>?;
+    return snapshot ?? (await _getFromServer()) as DocumentSnapshot<T>;
   }
 
-  Future<DocumentSnapshot> _getFromServer() => get();
+  Future<DocumentSnapshot> _getFromServer<T>() => get();
 
-  Future<DocumentSnapshot?> _getFromCache() async {
+  Future<DocumentSnapshot?> _getFromCache<T>() async {
     try {
       return await get(const GetOptions(source: Source.cache));
     } catch (_) {
       return null;
     }
   }
+}
 
+extension CollectionGetCacheElseServerExtension on CollectionReference {
+
+  Future<QuerySnapshot<T>> getCacheElseServer<T>() async {
+    QuerySnapshot<T>? snapshot;
+    snapshot = (await _getFromCache()) as QuerySnapshot<T>?;
+    return snapshot ?? (await _getFromServer()) as QuerySnapshot<T>;
+  }
+
+  Future<QuerySnapshot> _getFromServer<T>() => get();
+
+  Future<QuerySnapshot?> _getFromCache<T>() async {
+    try {
+      return await get(const GetOptions(source: Source.cache));
+    } catch (_) {
+      return null;
+    }
+  }
 }
