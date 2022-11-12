@@ -12,11 +12,11 @@ dependencies:
     sdk: flutter
 
   # https://pub.dev/packages/firebase_core
-  firebase_core: ^1.20.0
+  firebase_core: ^2.2.0
   # https://pub.dev/packages/firebase_auth
-  firebase_auth: ^3.6.0
-  #https://pub.dev/packages/cloud_firestore
-  cloud_firestore: ^3.4.1
+  firebase_auth: ^4.1.2
+#   https://pub.dev/packages/cloud_firestore
+  cloud_firestore: ^4.0.5
 
 dev_dependencies:
   flutter_test:
