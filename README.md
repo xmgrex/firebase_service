@@ -1,5 +1,8 @@
-Flutter Packages
-A collection of packages, created to increase code reuse across many of my Flutter projects.
+This package includes FirestoreService, a wrapper class for the cloud_firestore APIs.
+
+FirestoreService uses generics and the builder pattern to provide a type-based abstraction on top of cloud_firestore.
+
+It covers only a very limited subset of APIs from cloud_firestore.
 
 # Getting started
 
