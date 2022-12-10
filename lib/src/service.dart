@@ -5,23 +5,25 @@ import 'package:firebase_service/src/readers.dart';
 import 'package:firebase_service/src/streamers.dart';
 import 'package:firebase_service/src/writers.dart';
 
-class FirestoreService {
+class FirestoreService with Writers, Readers, Streamers {
   FirestoreService._();
 
   static final instance = FirestoreService._();
+  static final firestoreInstance = FirebaseFirestore.instance;
 
-  final firestoreInstance = FirebaseFirestore.instance;
-  final writers = Writers();
-  final readers = Readers();
-  final streamers = Streamers();
+  DocumentReference document({required String path}) {
+    return firestoreInstance.doc(path);
+  }
+
+  CollectionReference collection({required String path}) {
+    return firestoreInstance.collection(path);
+  }
 
   Future<bool> isExists({required String path}) async {
-    final reference = FirebaseFirestore.instance.doc(path);
-    print('isExists: $path');
+    final reference = firestoreInstance.doc(path);
     final snapshot = await reference.get();
     return snapshot.exists;
   }
-
 }
 
 extension DocumentGetCacheElseServerExtension on DocumentReference {

@@ -26,6 +26,4 @@ class Writers {
     print('delete: $path');
     await reference.delete();
   }
-
-
 }

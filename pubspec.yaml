@@ -1,7 +1,7 @@
 name: firebase_service
 description: A collection of packages, created to increase code reuse across many of my Flutter projects.
 version: 0.0.1
-homepage:
+homepage: https://github.com/xmgrex/firebase_service
 
 environment:
   sdk: ">=2.16.2 <3.0.0"
@@ -13,8 +13,6 @@ dependencies:
 
   # https://pub.dev/packages/firebase_core
   firebase_core: ^2.4.0
-  # https://pub.dev/packages/firebase_auth
-  firebase_auth: ^4.2.0
 #   https://pub.dev/packages/cloud_firestore
   cloud_firestore: ^4.2.0
 

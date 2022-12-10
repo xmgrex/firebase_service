@@ -1,88 +1,71 @@
-Flutter Packages
-A collection of packages, created to increase code reuse across many of my Flutter projects.
-
-# Getting started
-
-In your flutter project add the dependency:
-```
-dependencies:
-  firebase_service: ^<version>
-```
-
-Import package:
-```dart
 import 'package:firebase_service/firebase_service.dart';
-```
 
-# Usage
+class FirestoreDatabase {
+  final service = FirestoreService.instance;
 
-Create instance:
-```dart
-final service = FirestoreService.instance;
-```
-
-To write a document:
-```dart
+  //* Set */
+  Future<void> setData(String id) async {
     final path = 'collection/$id';
     await service.set(path: path, data: {'id': id});
-```
+  }
 
-To update a document:
-```dart
+  //* Update */
+  Future<void> updateData(String id) async {
     final path = 'collection/$id';
     await service.update(path: path, data: {'id': id});
-```
+  }
 
-To delete a document:
-```dart
+  //* Delete */
   Future<void> deleteData(String id) async {
     final path = 'collection/$id';
     await service.delete(path: path);
   }
-```
 
-To get a document:
-```dart
+  //* Get */
+  Future<dynamic> getData(String id) async {
     final path = 'collection/$id';
     final res = await service.getDocument(
       path: path,
       builder: ((data, documentID) => data!),
     );
-```
+    return res;
+  }
 
-To stream a document:
-```dart
+  //* Stream */
+  Stream<dynamic> streamData(String id) {
     final path = 'collection/$id';
-    final res = service.documentStream(
+    return service.documentStream(
       path: path,
       builder: ((data, documentID) => data!),
     );
-```
+  }
 
-To stream a collection:
-```dart
-    final path = 'collection/$id';
-    final res = service.collectionStream(
-      path: path,
-      builder: ((data, documentID) => data!),
-    );
-```
-
-To get a collection:
-```dart
+  //* Get collection */
+  Future<List<dynamic>> getDataList(String id) async {
     final path = 'collection/$id';
     final res = await service.getCollection(
       path: path,
       builder: ((data, documentID) => data!),
     );
-```
+    return res;
+  }
 
-To get a collection with limit:
-```dart
+  //* Get collection in real time. */
+  Stream<List<dynamic>> streamDataList(String id) {
     final path = 'collection/$id';
-    final res = service.collectionStream(
+    return service.collectionStream(
+      path: path,
+      builder: ((data, documentID) => data!),
+    );
+  }
+
+  //* Limit query. */
+  Stream<List<dynamic>> streamDataListLimit(String id) {
+    final path = 'collection/$id';
+    return service.collectionStream(
       path: path,
       builder: ((data, documentID) => data!),
       limit: 20, //* <--- Just add a limit.
     );
-```
+  }
+}
