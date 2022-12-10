@@ -38,10 +38,8 @@ To update a document:
 
 To delete a document:
 ```dart
-  Future<void> deleteData(String id) async {
     final path = 'collection/$id';
     await service.delete(path: path);
-  }
 ```
 
 To get a document:

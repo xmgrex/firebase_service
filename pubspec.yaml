@@ -1,6 +1,6 @@
 name: firebase_service
 description: A collection of packages, created to increase code reuse across many of my Flutter projects.
-version: 0.0.1
+version: 0.0.1+1
 homepage: https://github.com/xmgrex/firebase_service
 
 environment:
